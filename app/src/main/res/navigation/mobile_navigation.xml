@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_diary">
+
+    <fragment
+        android:id="@+id/navigation_diary"
+        android:name="com.sup.diary.ui.diary.DiaryFragment"
+        android:label="Diary"
+        tools:layout="@layout/fragment_diary" />
+
+    <fragment
+        android:id="@+id/navigation_grades"
+        android:name="com.sup.diary.ui.grades.GradesFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_chats" />
+
+    <fragment
+        android:id="@+id/navigation_chats"
+        android:name="com.sup.diary.ui.chats.ChatsFragment"
+        android:label="Grades"
+        tools:layout="@layout/fragment_grades" />
+
+    <fragment
+        android:id="@+id/navigation_profile"/>
+</navigation>
