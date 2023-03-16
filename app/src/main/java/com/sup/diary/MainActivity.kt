@@ -1,11 +1,15 @@
 package com.sup.diary
 
+import android.icu.util.Calendar
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.sup.diary.databinding.ActivityMainBinding
+import com.sup.diary.models.Diary
 import com.sup.diary.models.GetDataModel
 import com.sup.diary.models.GetLoginModel
+import com.sup.diary.models.Student
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.okhttp.*
@@ -22,6 +26,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.security.MessageDigest
+import java.util.Date
 import kotlin.text.Charsets.UTF_8
 
 class MainActivity : AppCompatActivity() {
@@ -29,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     fun Any?.log(tag: String) = Log.d(tag, this.toString())
 
-    val client = HttpClient(OkHttp) {
+    var client = HttpClient(OkHttp) {
         followRedirects = false
         install(HttpCookies)
         install(Logging) {
@@ -37,11 +42,6 @@ class MainActivity : AppCompatActivity() {
             level = LogLevel.ALL
         }
         install(ContentNegotiation) { gson() }
-//        install(Auth) {
-//            bearer {
-//
-//            }
-//        }
     }
 
     val url = "http://109.195.102.150/webapi/"
@@ -65,24 +65,18 @@ class MainActivity : AppCompatActivity() {
 //        navView.setupWithNavController(navController)
 
 
-
-
-
         CoroutineScope(Dispatchers.IO).launch {
+
+
+
             val getData: GetDataModel =
                 client.post(url + "auth/getdata").body()
             client.cookies(url).log("cookie")
 
-//          -----getData-----
             val salt = getData.salt
             val lt = getData.lt
             val ver = getData.ver
 
-            salt.log("")
-            lt.log("")
-            ver.log("")
-
-//          -----encryptor-----
             fun md5(str: String): ByteArray =
                 MessageDigest.getInstance("MD5").digest(str.toByteArray(UTF_8))
 
@@ -92,7 +86,6 @@ class MainActivity : AppCompatActivity() {
             val pw2 = md5(salt + enc_pw).toHex()
             val pw = pw2.substring(0, orig_pw.length)
 
-//          -----login-----
             val login: GetLoginModel = client.submitForm(
                 url = url + "login",
                 formParameters = Parameters.build {
@@ -116,40 +109,67 @@ class MainActivity : AppCompatActivity() {
             val accessToken = login.accessToken
             val refreshToken = login.refreshToken
 
-            val response = client.get(url + "grade/assignment/types").body<String>().log("result")
-
-//            client.close()
-
-//            val client = HttpClient(OkHttp) {
-//                followRedirects = false
-//                install(HttpCookies)
-//                install(Logging) {
-//                    logger = Logger.SIMPLE
-//                    level = LogLevel.ALL
-//                }
-//                install(ContentNegotiation) { gson() }
-//                install(Auth) {
-//                    bearer {
-//                        loadTokens {
-//                            BearerTokens(accessToken)
-//                        }
-//                        refreshTokens {
-//                            BearerTokens(refreshToken)
-//                        }
-//                    }
-//                }
+            client = HttpClient(OkHttp) {
+                followRedirects = false
+                install(HttpCookies)
+                install(Logging) {
+                    logger = Logger.SIMPLE
+                    level = LogLevel.ALL
+                }
+                install(ContentNegotiation) { gson() }
+                install(Auth) {
+                    bearer {
+                        loadTokens {
+                            BearerTokens(accessToken, refreshToken)
+                        }
+                    }
+                }
             }
+
+            val student: Student = client.get(url + "student/diary/init").body()
+            val currentYear = client.get(url + "years/current").body<String>().log("result")
+            val assignmentTypes = client.get(url + "grade/assignment/types").body<String>().log("result")
+
+            val studentId = student.studentId
+            val yearId = student.yearId
+
+            student.log("result")
+
+
+
+
 
         }
 
 
+    }
+
+    suspend fun getAttachment(attachmentId: Int, ){
+        val response = client.get(url + "attachments/$attachmentId")
+        TODO("save attachment")
+    }
+
+    suspend fun getDiary(start: Date, end: Date, studentId: Int, yearId: Int){
+
+        val diary: Diary = client.submitForm(
+            url + "student/diary",
+            formParameters = Parameters.build {
+                append("studentId", studentId.toString())
+                append("yearId", yearId.toString())
+                append("weekStart", start.toString())
+                append("weekEnd", end.toString())
+            }
+        ).body()
+
+    }
 
 
     override fun onDestroy() {
         super.onDestroy()
         CoroutineScope(Dispatchers.IO).launch {
-            client.post(url + "auth/logout").log("closed")
-        }
+            val result = client.post(url + "auth/logout").log("closed")
             client.close()
+        }
     }
+
 }
