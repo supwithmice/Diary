@@ -1,15 +1,10 @@
 package com.sup.diary
 
-import android.icu.util.Calendar
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.sup.diary.databinding.ActivityMainBinding
-import com.sup.diary.models.Diary
-import com.sup.diary.models.GetDataModel
-import com.sup.diary.models.GetLoginModel
-import com.sup.diary.models.Student
+import com.sup.diary.models.*
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.okhttp.*
@@ -26,6 +21,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.security.MessageDigest
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.util.Calendar
 import java.util.Date
 import kotlin.text.Charsets.UTF_8
 
@@ -69,9 +67,8 @@ class MainActivity : AppCompatActivity() {
 
 
 
-            val getData: GetDataModel =
-                client.post(url + "auth/getdata").body()
-            client.cookies(url).log("cookie")
+            val getData: GetDataModel = client.post(url + "auth/getdata").body()
+            client.cookies(url)
 
             val salt = getData.salt
             val lt = getData.lt
@@ -126,15 +123,24 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            val student: Student = client.get(url + "student/diary/init").body()
-            val currentYear = client.get(url + "years/current").body<String>().log("result")
-            val assignmentTypes = client.get(url + "grade/assignment/types").body<String>().log("result")
 
-            val studentId = student.studentId
-            val yearId = student.yearId
+            val init: DiaryInit = client.get(url + "student/diary/init").body()
+            val currentYear: CurrentYear = client.get(url + "years/current").body()
+            val assignmentTypes = client.get(url + "grade/assignment/types").body<String>().log("assignmentTypes")
 
-            student.log("result")
+            val yearId = currentYear.id
+            val student: Student = init.students[0]
 
+            val gold = getDiary(student, yearId)
+
+
+
+
+//
+
+
+
+            client.close()
 
 
 
@@ -149,27 +155,39 @@ class MainActivity : AppCompatActivity() {
         TODO("save attachment")
     }
 
-    suspend fun getDiary(start: Date, end: Date, studentId: Int, yearId: Int){
+    suspend fun getDiary(student: Student, yearId: Int, start: String? = null, end: String? = null){
 
-        val diary: Diary = client.submitForm(
-            url + "student/diary",
-            formParameters = Parameters.build {
-                append("studentId", studentId.toString())
-                append("yearId", yearId.toString())
-                append("weekStart", start.toString())
-                append("weekEnd", end.toString())
-            }
-        ).body()
+        if (start == null) {
+//            val calendar = Calendar.getInstance()
+//            calendar.firstDayOfWeek.log("asdasd")
+
+//            val formatter = SimpleDateFormat("yyyy-MM-dd")
+//            val current = formatter.format(calendar).log("asdas")
+
+            val date = Date().log("asd")
+            val current = SimpleDateFormat("yyyy-MM-dd").format(date).log("asd")
+
+        }
+
+
+//        val diary: Diary = client.submitForm(
+//            url + "student/diary",
+//            formParameters = Parameters.build {
+//                append("studentId", student.studentId.toString())
+//                append("yearId", yearId.toString())
+//                append("weekStart", start.toString())
+//                append("weekEnd", end.toString())
+//            }
+//        ).body()
 
     }
 
 
     override fun onDestroy() {
-        super.onDestroy()
         CoroutineScope(Dispatchers.IO).launch {
             val result = client.post(url + "auth/logout").log("closed")
             client.close()
         }
+        super.onDestroy()
     }
-
 }
