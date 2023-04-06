@@ -14,15 +14,19 @@
     <fragment
         android:id="@+id/navigation_grades"
         android:name="com.sup.diary.ui.grades.GradesFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_chats" />
-
-    <fragment
-        android:id="@+id/navigation_chats"
-        android:name="com.sup.diary.ui.chats.ChatsFragment"
         android:label="Grades"
         tools:layout="@layout/fragment_grades" />
 
     <fragment
-        android:id="@+id/navigation_profile"/>
+        android:id="@+id/navigation_mail"
+        android:name="com.sup.diary.ui.mail.MailFragment"
+        android:label="Mail"
+        tools:layout="@layout/fragment_mail" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.sup.diary.ui.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile"/>
+
 </navigation>
