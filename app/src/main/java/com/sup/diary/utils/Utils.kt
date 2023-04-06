@@ -10,11 +10,6 @@ import io.ktor.serialization.gson.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-val monday = Calendar.MONDAY
-val friday = Calendar.FRIDAY
-val calendar = Calendar.getInstance()
-var formatter = SimpleDateFormat("yyyy-MM-dd")
-
 var client = HttpClient(OkHttp) {
     followRedirects = false
     install(HttpCookies)
@@ -25,6 +20,10 @@ var client = HttpClient(OkHttp) {
     install(ContentNegotiation) { gson() }
 }
 
+val monday = Calendar.MONDAY
+val friday = Calendar.FRIDAY
+val calendar = Calendar.getInstance()
+var formatter = SimpleDateFormat("yyyy-MM-dd")
 fun getFirstDay(): String {
     calendar.set(Calendar.DAY_OF_WEEK, monday)
     val date = calendar.time

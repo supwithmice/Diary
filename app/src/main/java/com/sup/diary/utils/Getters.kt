@@ -11,8 +11,6 @@ import io.ktor.client.request.forms.*
 import io.ktor.http.*
 
 val url = "http://109.195.102.150/webapi/"
-val orig_pw = "178285"
-val username = "СмирновГ"
 
 suspend fun getAttachment(attachmentId: Int, ){
     val response = client.get(url + "attachments/$attachmentId")

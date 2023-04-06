@@ -1,13 +1,13 @@
 package com.sup.diary
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.service.autofill.Validators.or
 
 import androidx.appcompat.app.AppCompatActivity
 import com.sup.diary.models.*
-import com.sup.diary.utils.orig_pw
 import com.sup.diary.utils.url
-import com.sup.diary.utils.username
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.okhttp.*
@@ -22,6 +22,7 @@ import io.ktor.http.*
 import io.ktor.serialization.gson.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.handleCoroutineException
 import kotlinx.coroutines.launch
 import java.security.MessageDigest
 import kotlin.text.Charsets.UTF_8
@@ -29,6 +30,26 @@ import kotlin.text.Charsets.UTF_8
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val sharedPreference =  getSharedPreferences("login_data_preference",Context.MODE_PRIVATE)
+
+        val _origPw = sharedPreference.getString("password", null)
+        val _username = sharedPreference.getString("username",null)
+
+        if (_origPw == null) {
+            startActivity(Intent(this, InitialLogin::class.java))
+            finish()
+        }
+        if (_username == null) {
+            startActivity(Intent(this, InitialLogin::class.java))
+            finish()
+        }
+
+        val origPw = _origPw!!
+        val username = _username!!
+
+        origPw.log()
+        username.log()
 
         CoroutineScope(Dispatchers.IO).launch {
             val getData: GetDataModel = client.post(url + "auth/getdata").body()
@@ -43,9 +64,9 @@ class MainActivity : AppCompatActivity() {
 
             fun ByteArray.toHex() = joinToString(separator = "") { byte -> "%02x".format(byte) }
 
-            val enc_pw = md5(orig_pw).toHex()
-            val pw2 = md5(salt + enc_pw).toHex()
-            val pw = pw2.substring(0, orig_pw.length)
+            val encryptedPw = md5(origPw).toHex()
+            val pw2 = md5(salt + encryptedPw).toHex()
+            val pw = pw2.substring(0, origPw.length)
 
             val login: GetLoginModel = client.submitForm(
                 url = url + "login",
@@ -95,15 +116,17 @@ class MainActivity : AppCompatActivity() {
             val student: Student = init.students[0]
         }
 
-        val intent = Intent(this, MainMenuActivity::class.java)
-        startActivity(intent)
+        startActivity(Intent(this, MainMenuActivity::class.java))
+
+        finish()
     }
 
+
     override fun onDestroy() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val result = client.post(url + "auth/logout").log("closed")
-            client.close()
-        }
         super.onDestroy()
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val result = client.post(url + "auth/logout").log("closed")
+//            client.close()
+//        }
     }
 }
