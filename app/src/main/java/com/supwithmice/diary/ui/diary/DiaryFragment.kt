@@ -7,6 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.supwithmice.diary.databinding.FragmentDiaryBinding
+import com.supwithmice.diary.log
+import com.supwithmice.diary.utils.OurValues.student
+import com.supwithmice.diary.utils.OurValues.yearId
+import com.supwithmice.diary.utils.getDiary
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DiaryFragment : Fragment() {
 
@@ -26,11 +33,18 @@ class DiaryFragment : Fragment() {
 
         _binding = FragmentDiaryBinding.inflate(inflater, container, false)
         val root: View = binding.root
-//
+
 //        val textView: TextView = binding.textHome
 //        homeViewModel.text.observe(viewLifecycleOwner) {
 //            textView.text = it
 //        }
+        CoroutineScope(Dispatchers.IO).launch {
+            val diary = getDiary(student, yearId)
+            diary.log()
+        }
+
+
+
         return root
     }
 

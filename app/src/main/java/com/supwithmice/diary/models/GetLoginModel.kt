@@ -10,5 +10,6 @@ data class GetLoginModel(
     val refreshToken: String,
     val requestData: RequestData,
     val timeOut: Int,
-    val tokenType: String
+    val tokenType: String,
+    val message: String
 )

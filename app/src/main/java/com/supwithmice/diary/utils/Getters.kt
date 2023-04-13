@@ -17,7 +17,7 @@ suspend fun getAttachment(attachmentId: Int, ){
     TODO("save attachment")
 }
 
-suspend fun getDiary(student: Student, yearId: Int, start: String? = null, end: String? = null){
+suspend fun getDiary(student: Student, yearId: Int, start: String? = null, end: String? = null): Diary {
 
     if (start == null) {
         val start = getFirstDay()
@@ -36,4 +36,26 @@ suspend fun getDiary(student: Student, yearId: Int, start: String? = null, end: 
         }
     ).body()
 
+    return diary
+}
+
+
+suspend fun getOverdue(student: Student, yearId: Int, start: String? = null, end: String? = null) {
+
+    if (start == null) {
+        val start = getFirstDay()
+    }
+    if (end == null) {
+        val end = getLastDay()
+    }
+
+    val overdue: Diary = client.submitForm(
+        url + "student/diary/pastMandatory",
+        formParameters = Parameters.build {
+            append("studentId", student.studentId.toString())
+            append("yearId", yearId.toString())
+            append("weekStart", start.toString())
+            append("weekEnd", end.toString())
+        }
+    ).body()
 }
