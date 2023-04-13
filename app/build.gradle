@@ -7,7 +7,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.sup.diary"
+        applicationId "com.supwithmice.diary"
         minSdk 22
         targetSdk 33
         versionCode 1

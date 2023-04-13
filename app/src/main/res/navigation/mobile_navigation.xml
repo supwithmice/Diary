@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/navigation_diary"
-        android:name="com.sup.diary.ui.diary.DiaryFragment"
+        android:name="com.supwithmice.diary.ui.diary.DiaryFragment"
         android:label="Diary"
         tools:layout="@layout/fragment_diary" />
 
     <fragment
         android:id="@+id/navigation_grades"
-        android:name="com.sup.diary.ui.grades.GradesFragment"
+        android:name="com.supwithmice.diary.ui.grades.GradesFragment"
         android:label="Grades"
         tools:layout="@layout/fragment_grades" />
 
     <fragment
         android:id="@+id/navigation_mail"
-        android:name="com.sup.diary.ui.mail.MailFragment"
+        android:name="com.supwithmice.diary.ui.mail.MailFragment"
         android:label="Mail"
         tools:layout="@layout/fragment_mail" />
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.sup.diary.ui.profile.ProfileFragment"
+        android:name="com.supwithmice.diary.ui.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile"/>
 
