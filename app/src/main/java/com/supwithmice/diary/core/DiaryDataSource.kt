@@ -20,15 +20,16 @@ suspend fun getDiary(student: Student, yearId: Int, start: String? = null, end: 
     val start = start ?: getFirstDay()
     val end = end ?: getLastDay()
 
-    val diary: Diary = client.submitForm(
-        url + "student/diary",
-        formParameters = Parameters.build {
-            append("studentId", student.studentId.toString())
-            append("yearId", yearId.toString())
-            append("weekStart", start)
-            append("weekEnd", end)
+    val diary: Diary = client.get(url + "student/diary") {
+        url {
+            parameters.append("studentId", student.studentId.toString())
+            parameters.append("yearId", yearId.toString())
+            parameters.append("weekStart", start)
+            parameters.append("weekEnd", end)
+            parameters.append("vers", SiteInformation.ver)
+            parameters.append("withLaAssigns", "true")
         }
-    ).body()
+    }.body()
 
     return diary
 }
@@ -38,13 +39,13 @@ suspend fun getOverdue(student: Student, yearId: Int, start: String? = null, end
     val start = start ?: getFirstDay()
     val end = end ?: getLastDay()
 
-    val overdue: Diary = client.submitForm(
-        url + "student/diary/pastMandatory",
-        formParameters = Parameters.build {
-            append("studentId", student.studentId.toString())
-            append("yearId", yearId.toString())
-            append("weekStart", start)
-            append("weekEnd", end)
+    val overdue: Diary = client.get(
+        url + "student/diary/pastMandatory") {
+        url {
+            parameters.append("studentId", student.studentId.toString())
+            parameters.append("yearId", yearId.toString())
+            parameters.append("weekStart", start)
+            parameters.append("weekEnd", end)
         }
-    ).body()
+    }.body()
 }

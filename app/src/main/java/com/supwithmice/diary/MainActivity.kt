@@ -3,17 +3,14 @@ package com.supwithmice.diary
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.supwithmice.diary.DiaryApp.Companion.appToast
 import com.supwithmice.diary.core.AuthModule.AuthEvent
 import com.supwithmice.diary.core.AuthModule.authMe
-import com.supwithmice.diary.core.AuthModule.url
 import com.supwithmice.diary.core.SettingsModule.diaryPassword
 import com.supwithmice.diary.core.SettingsModule.diaryUsername
 import com.supwithmice.diary.core.StudentInformation.initData
-import com.supwithmice.diary.core.client
 import com.supwithmice.diary.core.recreateClient
-import io.ktor.client.request.*
+import com.supwithmice.diary.utils.outLogger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -68,10 +65,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (isLoggedIn) {
-            lifecycleScope.launch(Dispatchers.IO) {
-                client.post(url + "auth/logout")
-            }
-        }
+        outLogger()
     }
 }

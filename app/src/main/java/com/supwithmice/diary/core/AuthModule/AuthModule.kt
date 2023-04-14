@@ -1,5 +1,8 @@
 package com.supwithmice.diary.core.AuthModule
 
+import com.supwithmice.diary.core.SiteInformation.lt
+import com.supwithmice.diary.core.SiteInformation.salt
+import com.supwithmice.diary.core.SiteInformation.ver
 import com.supwithmice.diary.core.client
 import com.supwithmice.diary.models.GetDataModel
 import com.supwithmice.diary.models.GetLoginModel
@@ -15,9 +18,9 @@ suspend fun authMe(password: String, username: String): AuthEvent {
     val getData: GetDataModel = client.post(url + "auth/getdata").body()
     client.cookies(url)
 
-    val salt = getData.salt
-    val lt = getData.lt
-    val ver = getData.ver
+    salt = getData.salt
+    lt = getData.lt
+    ver = getData.ver
 
     fun md5(str: String): ByteArray =
         MessageDigest.getInstance("MD5").digest(str.toByteArray(Charsets.UTF_8))
