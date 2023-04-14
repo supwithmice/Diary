@@ -7,20 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.supwithmice.diary.databinding.FragmentDiaryBinding
-import com.supwithmice.diary.log
-import com.supwithmice.diary.utils.OurValues.student
-import com.supwithmice.diary.utils.OurValues.yearId
-import com.supwithmice.diary.utils.getDiary
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.supwithmice.diary.utils.log
 
 class DiaryFragment : Fragment() {
 
     private var _binding: FragmentDiaryBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -28,8 +19,7 @@ class DiaryFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-                ViewModelProvider(this).get(DiaryViewModel::class.java)
+        val diaryViewModel = ViewModelProvider(this)[DiaryViewModel::class.java]
 
         _binding = FragmentDiaryBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -38,12 +28,11 @@ class DiaryFragment : Fragment() {
 //        homeViewModel.text.observe(viewLifecycleOwner) {
 //            textView.text = it
 //        }
-        CoroutineScope(Dispatchers.IO).launch {
-            val diary = getDiary(student, yearId)
-            diary.log()
+
+        diaryViewModel.updateDiary()
+        diaryViewModel.diary.observe(viewLifecycleOwner) {
+            it.log()
         }
-
-
 
         return root
     }
