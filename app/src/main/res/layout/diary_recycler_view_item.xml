@@ -10,9 +10,8 @@
     <TextView
         android:id="@+id/lessonNameView"
         android:layout_width="140dp"
-        android:layout_height="30dp"
+        android:layout_height="45dp"
         android:padding="2dp"
-        android:text="lesson"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,21 +21,24 @@
         android:layout_width="140dp"
         android:layout_height="30dp"
         android:padding="2dp"
-        android:text="time - time"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lessonNameView" />
 
     <TextView
         android:id="@+id/assingnmentView"
         android:layout_width="200dp"
-        android:layout_height="60dp"
+        android:layout_height="75dp"
+        android:padding="2dp"
         app:layout_constraintStart_toEndOf="@+id/lessonNameView"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/markImageView"
+    <TextView
+        android:id="@+id/markTextView"
         android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_height="75dp"
+        android:textStyle="italic"
+        android:textSize="35sp"
+        android:gravity="center"
         app:layout_constraintStart_toEndOf="@+id/assingnmentView"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

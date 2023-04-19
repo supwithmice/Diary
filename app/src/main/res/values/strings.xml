@@ -1,21 +1,21 @@
 <resources>
-    <string name="app_name">Diary</string>
-    <string name="title_diary">Diary</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_grades">Grades</string>
+    <string name="app_name" translatable="false">Diary</string>
+    <string name="title_diary" translatable="false">Diary</string>
+    <string name="title_dashboard" translatable="false">Dashboard</string>
+    <string name="title_grades" translatable="false">Grades</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main_menu">MainMenuActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_activity_initial_login">InitialLogin</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="title_activity_main_menu" translatable="false">MainMenuActivity</string>
+    <string name="title_home" translatable="false">Home</string>
+    <string name="title_notifications" translatable="false">Notifications</string>
+    <string name="title_activity_initial_login" translatable="false">InitialLogin</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="first_fragment_label" translatable="false">First Fragment</string>
+    <string name="second_fragment_label" translatable="false">Second Fragment</string>
+    <string name="next" translatable="false">Next</string>
+    <string name="previous" translatable="false">Previous</string>
 
-    <string name="lorem_ipsum">
+    <string name="lorem_ipsum" translatable="false">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
         dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
@@ -53,4 +53,9 @@
     </string>
     <string name="username_is_required">Username is required</string>
     <string name="password_is_required">Password is required</string>
+    <string name="monday">Monday</string>
+    <string name="friday">Friday</string>
+    <string name="thursday">Thursday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="tuesday">Tuesday</string>
 </resources>

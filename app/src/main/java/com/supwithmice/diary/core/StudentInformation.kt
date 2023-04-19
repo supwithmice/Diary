@@ -16,7 +16,7 @@ object StudentInformation {
     suspend fun initData() {
         ourDiary = client.get(url + "student/diary/init").body()
         currentYear = client.get(url + "years/current").body()
-        yearId = 10010 //currentYear.id
+        yearId = currentYear.id
         student = ourDiary.students[0]
     }
 }

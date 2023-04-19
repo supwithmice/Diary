@@ -26,7 +26,7 @@ class InitialLogin : AppCompatActivity() {
             val username = binding.editTextUsername.text.toString()
             val password = binding.editTextPassword.text.toString()
 
-            if (username != "" && password != "") {
+            if (username.isNotEmpty() && password.isNotEmpty()) {
                 diaryUsername = username
                 diaryPassword = password
                 startActivity(Intent(this, MainActivity::class.java))

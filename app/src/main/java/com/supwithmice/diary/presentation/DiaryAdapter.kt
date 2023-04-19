@@ -7,8 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.supwithmice.diary.R
+import com.supwithmice.diary.models.Lesson
 
-class DiaryAdapter (private val dataSet: Array<String>) :
+class DiaryAdapter (private val dataSet: List<Lesson>) :
     RecyclerView.Adapter<DiaryAdapter.ViewHolder>() {
 
     /**
@@ -19,7 +20,7 @@ class DiaryAdapter (private val dataSet: Array<String>) :
         val lessonNameView: TextView
         val lessonTimeView: TextView
         val assingnmentView: TextView
-        val markImageView: ImageView
+        val markTextView: TextView
 
 
         init {
@@ -27,7 +28,7 @@ class DiaryAdapter (private val dataSet: Array<String>) :
             lessonNameView = view.findViewById(R.id.lessonNameView)
             lessonTimeView = view.findViewById(R.id.lessonTimeView)
             assingnmentView = view.findViewById(R.id.assingnmentView)
-            markImageView = view.findViewById(R.id.markImageView)
+            markTextView = view.findViewById(R.id.markTextView)
         }
     }
 
@@ -45,10 +46,22 @@ class DiaryAdapter (private val dataSet: Array<String>) :
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.lessonNameView.text = dataSet[position]
-        viewHolder.lessonTimeView.text = dataSet[position]
-        viewHolder.assingnmentView.text = dataSet[position]
-//        viewHolder.markImageView.drawable =
+
+        viewHolder.lessonNameView.text = dataSet[position].subjectName
+        viewHolder.lessonTimeView.text = dataSet[position].startTime + " - " + dataSet[position].endTime
+//        for (assignment in dataSet[position].assignments) { }
+        if (dataSet[position].assignments != null) {
+            viewHolder.assingnmentView.text = dataSet[position].assignments?.get(0)?.assignmentName.toString()
+            val mark = if (dataSet[position].assignments?.get(0)?.mark?.mark != null) {
+                ""
+            } else {dataSet[position].assignments?.get(0)?.mark?.mark.toString()}
+            viewHolder.markTextView.text = mark
+        } else {
+            viewHolder.assingnmentView.text = ""
+            viewHolder.markTextView.text = ""
+        }
+
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)

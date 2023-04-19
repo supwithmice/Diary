@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="username_is_required">Логин обязателен</string>
+    <string name="password_is_required">Пароль обязателен</string>
+    <string name="monday">Понедельник</string>
+    <string name="friday">Пятница</string>
+    <string name="thursday">Четверг</string>
+    <string name="wednesday">Среда</string>
+    <string name="tuesday">Вторник</string>
+</resources>

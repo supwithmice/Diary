@@ -5,6 +5,7 @@ package com.supwithmice.diary.core
 import com.supwithmice.diary.core.AuthModule.url
 import com.supwithmice.diary.models.Diary
 import com.supwithmice.diary.models.Student
+import com.supwithmice.diary.utils.log
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
@@ -34,7 +35,7 @@ suspend fun getDiary(student: Student, yearId: Int, start: String? = null, end: 
     return diary
 }
 
-suspend fun getOverdue(student: Student, yearId: Int, start: String? = null, end: String? = null) {
+suspend fun getOverdue(student: Student, yearId: Int , start: String? = null, end: String? = null) {
 
     val start = start ?: getFirstDay()
     val end = end ?: getLastDay()
@@ -48,4 +49,6 @@ suspend fun getOverdue(student: Student, yearId: Int, start: String? = null, end
             parameters.append("weekEnd", end)
         }
     }.body()
+
+    overdue.log()
 }

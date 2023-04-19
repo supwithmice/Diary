@@ -9,7 +9,14 @@ import io.ktor.client.plugins.cookies.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.serialization.gson.*
 
+
 var client = HttpClient(OkHttp) {
+    engine {
+//        addInterceptor(addInterceptor())
+//        this.config {
+//            cookieJar(cookieJar = )
+//        }
+    }
     followRedirects = false
     install(HttpCookies)
     install(Logging) {

@@ -18,7 +18,6 @@ import kotlinx.coroutines.withContext
 
 
 class MainActivity : AppCompatActivity() {
-    var isLoggedIn = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +34,6 @@ class MainActivity : AppCompatActivity() {
 
                 when (authEvent) {
                     is AuthEvent.GotAuth -> {
-                        isLoggedIn = true
                         val login = authEvent.dc
                         val at = login.at
                         val accessToken = login.accessToken

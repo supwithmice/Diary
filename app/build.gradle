@@ -47,6 +47,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.9.0'
 
     implementation 'com.google.android.material:material:1.8.0'
+//    implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
 
     def ktor_version = "2.2.1"
     implementation "io.ktor:ktor-client-core-jvm:$ktor_version"
