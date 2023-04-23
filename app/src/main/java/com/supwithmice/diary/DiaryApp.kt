@@ -11,7 +11,7 @@ class DiaryApp : Application() {
         instance = this
         initSettings()
     }
-
+    //emulator environment only
     override fun onTerminate() {
         super.onTerminate()
         outLogger()

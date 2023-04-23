@@ -3,21 +3,21 @@ package com.supwithmice.diary
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.supwithmice.diary.core.AuthModule.reAuthMe
+import com.supwithmice.diary.core.SettingsModule.diaryPassword
+import com.supwithmice.diary.core.SettingsModule.diaryUsername
+import com.supwithmice.diary.core.recreateClient
 import com.supwithmice.diary.databinding.ActivityMainMenuBinding
 import com.supwithmice.diary.utils.outLogger
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainMenuActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainMenuBinding
-
-    override fun onStop() {
-        super.onStop()
-        outLogger()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,5 +40,17 @@ class MainMenuActivity : AppCompatActivity() {
 //        )
 //        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        outLogger()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        CoroutineScope(Dispatchers.IO).launch {
+            reAuthMe()
+        }
     }
 }

@@ -1,6 +1,6 @@
 package com.supwithmice.diary.models
 
-data class GetLoginModel(
+data class LoginModel(
     val accessToken: String,
     val accountInfo: AccountInfo,
     val at: String,

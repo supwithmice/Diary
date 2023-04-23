@@ -1,11 +1,15 @@
 package com.supwithmice.diary.ui.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import com.supwithmice.diary.InitialLogin
+import com.supwithmice.diary.core.DiaryData
+import com.supwithmice.diary.core.SettingsModule.diaryPassword
+import com.supwithmice.diary.core.SettingsModule.diaryUsername
 import com.supwithmice.diary.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
@@ -21,16 +25,20 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val notificationsViewModel =
-            ViewModelProvider(this).get(ProfileViewModel::class.java)
 
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
-//
-//        val textView: TextView = binding.textNotifications
-//        notificationsViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
+
+        binding.nameTextView.text = DiaryData.student.nickName
+        binding.phoneEditText.setText(DiaryData.diarySettings.mobilePhone)
+        binding.emailEditText.setText(DiaryData.diarySettings.email)
+        binding.logOutTextView.setOnClickListener {
+            diaryUsername = null
+            diaryPassword = null
+            startActivity(Intent(container!!.context, InitialLogin::class.java))
+            activity?.finish()
+        }
+
         return root
     }
 

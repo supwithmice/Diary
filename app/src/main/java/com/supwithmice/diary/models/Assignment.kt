@@ -5,7 +5,7 @@ data class Assignment(
     val classMeetingId: Int,
     val dueDate: String,
     val id: Int,
-    val mark: Mark,
+    val mark: Mark?,
     val typeId: Int,
     val weight: Int
 )

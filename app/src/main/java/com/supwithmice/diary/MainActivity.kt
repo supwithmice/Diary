@@ -8,7 +8,7 @@ import com.supwithmice.diary.core.AuthModule.AuthEvent
 import com.supwithmice.diary.core.AuthModule.authMe
 import com.supwithmice.diary.core.SettingsModule.diaryPassword
 import com.supwithmice.diary.core.SettingsModule.diaryUsername
-import com.supwithmice.diary.core.StudentInformation.initData
+import com.supwithmice.diary.core.DiaryData.initData
 import com.supwithmice.diary.core.recreateClient
 import com.supwithmice.diary.utils.outLogger
 import kotlinx.coroutines.CoroutineScope
@@ -22,19 +22,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val origPw = diaryPassword
-        val username = diaryUsername
-
-        if (origPw == null || username == null) {
+        if (diaryPassword == null || diaryUsername == null) {
             startActivity(Intent(this, InitialLogin::class.java))
             finish()
         } else {
             CoroutineScope(Dispatchers.IO).launch {
-                val authEvent = authMe(origPw, username)
-
-                when (authEvent) {
+                when (val authEvent = authMe(diaryPassword!!, diaryUsername!!)) {
                     is AuthEvent.GotAuth -> {
-                        val login = authEvent.dc
+                        val login = authEvent.login
                         val at = login.at
                         val accessToken = login.accessToken
                         val refreshToken = login.refreshToken

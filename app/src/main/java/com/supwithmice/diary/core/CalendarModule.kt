@@ -1,7 +1,9 @@
 package com.supwithmice.diary.core
 
+import com.supwithmice.diary.utils.log
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Pattern
 
 const val monday = Calendar.MONDAY
 const val friday = Calendar.FRIDAY

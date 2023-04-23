@@ -1,6 +1,6 @@
 package com.supwithmice.diary.models
 
-data class DiaryInit(
+data class DiaryGeneral(
     val currentStudentId: Int,
     val externalUrl: String,
     val maxMark: Int,

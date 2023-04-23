@@ -13,6 +13,7 @@
         android:layout_height="45dp"
         android:padding="2dp"
         android:textStyle="bold"
+        android:text="Subject"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,6 +22,8 @@
         android:layout_width="140dp"
         android:layout_height="30dp"
         android:padding="2dp"
+        android:gravity="center_vertical"
+        android:text="13:00 - 13:40"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lessonNameView" />
 
@@ -29,7 +32,8 @@
         android:layout_width="200dp"
         android:layout_height="75dp"
         android:padding="2dp"
-        app:layout_constraintStart_toEndOf="@+id/lessonNameView"
+        android:text="Asignment"
+        app:layout_constraintStart_toEndOf="@+id/materialDivider"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -37,8 +41,31 @@
         android:layout_width="60dp"
         android:layout_height="75dp"
         android:textStyle="italic"
+        android:text="M"
         android:textSize="35sp"
         android:gravity="center"
+        app:layout_constraintStart_toEndOf="@id/materialDivider2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/materialDivider"
+        android:layout_width="0.5dp"
+        android:layout_height="75dp"
+        android:orientation="vertical"
+        app:dividerInsetEnd="20dp"
+        app:dividerInsetStart="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lessonNameView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/materialDivider2"
+        android:layout_width="0.5dp"
+        android:layout_height="75dp"
+        android:orientation="vertical"
+        app:dividerInsetEnd="20dp"
+        app:dividerInsetStart="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/assingnmentView"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

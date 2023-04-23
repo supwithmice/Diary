@@ -10,140 +10,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/monday"
-            android:textStyle="bold"
-            android:textSize="25sp"
-            android:layout_margin="8dp"
-            android:gravity="center"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/diaryRecyclerView1"
+            android:id="@+id/parentDiaryRecyclerView"
 
             android:layout_width="0dp"
             android:layout_height="wrap_content"
 
-            android:layout_margin="16dp"
+            android:layout_marginTop="3dp"
 
-            tools:listitem="@layout/diary_recycler_view_item"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tuesday"
-            android:textStyle="bold"
-            android:textSize="25sp"
-            android:layout_margin="8dp"
-            android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@+id/diaryRecyclerView1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/diaryRecyclerView2"
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-
-            android:layout_margin="16dp"
-
-            tools:listitem="@layout/diary_recycler_view_item"
+            tools:listitem="@layout/diary_parent_recycler_view_item"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/wednesday"
-            android:textStyle="bold"
-            android:textSize="25sp"
-            android:layout_margin="8dp"
-            android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@+id/diaryRecyclerView2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/diaryRecyclerView3"
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-
-            android:layout_margin="16dp"
-
-            tools:listitem="@layout/diary_recycler_view_item"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView3" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/thursday"
-            android:textStyle="bold"
-            android:textSize="25sp"
-            android:layout_margin="8dp"
-            android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@+id/diaryRecyclerView3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/diaryRecyclerView4"
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-
-            android:layout_margin="16dp"
-
-            tools:listitem="@layout/diary_recycler_view_item"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4"/>
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/friday"
-            android:textStyle="bold"
-            android:textSize="25sp"
-            android:layout_margin="8dp"
-            android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@+id/diaryRecyclerView4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/diaryRecyclerView5"
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-
-            android:layout_margin="16dp"
-
-            tools:listitem="@layout/diary_recycler_view_item"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
