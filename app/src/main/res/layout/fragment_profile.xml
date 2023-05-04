@@ -14,6 +14,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -44,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/log_out"
-                android:textColor="@color/material_dynamic_primary60"
+                android:textColor="@android:color/holo_blue_dark"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="10dp"
                 app:layout_constraintStart_toEndOf="@+id/imageView2"
@@ -87,7 +88,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/materialButton2"
+                android:id="@+id/saveAllButton"
                 style="@style/Widget.Material3.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -98,20 +99,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/changePasswordButton"
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Change password"
+                android:text="@string/change_password"
                 android:layout_marginHorizontal="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/materialButton2"
-                app:layout_constraintEnd_toStartOf="@+id/materialButton2"
-                app:layout_constraintTop_toTopOf="@+id/materialButton2" />
+                app:layout_constraintBottom_toBottomOf="@+id/saveAllButton"
+                app:layout_constraintEnd_toStartOf="@+id/saveAllButton"
+                app:layout_constraintTop_toTopOf="@+id/saveAllButton" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

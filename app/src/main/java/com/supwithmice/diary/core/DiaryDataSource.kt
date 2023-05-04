@@ -16,7 +16,7 @@ suspend fun getAttachment(attachmentId: Int){
     TODO("save attachment")
 }
 
-suspend fun getDiary(student: Student, yearId: Int, start: String? = null, end: String? = null): Diary {
+suspend fun getDiary(student: Student, yearId: Int, start: String? = null, end: String? = null): Diary? {
 
     val start = start ?: getFirstDay()
     val end = end ?: getLastDay()
@@ -32,7 +32,7 @@ suspend fun getDiary(student: Student, yearId: Int, start: String? = null, end: 
         }
     }.body()
 
-    return diary
+    return if (diary.message == "An error has occurred.") null else diary
 }
 
 //haven't got any overdue so can't test it lol

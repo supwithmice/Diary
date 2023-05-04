@@ -6,5 +6,7 @@ data class Diary(
     val termName: String,
     val weekDays: List<WeekDay>,
     val weekEnd: String,
-    val weekStart: String
+    val weekStart: String,
+    val message: String?,
+    val exceptionMessage: String?
 )

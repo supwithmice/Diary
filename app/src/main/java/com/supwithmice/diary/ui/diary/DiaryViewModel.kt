@@ -15,8 +15,8 @@ class DiaryViewModel : ViewModel() {
     private val _diary = MutableLiveData<Diary?>()
     val diary: LiveData<Diary?> = _diary
 
-    private fun updateDiary() = viewModelScope.launch {
-        _diary.value = getDiary(student, yearId)
+    fun updateDiary(start: String? = null, end: String? = null) = viewModelScope.launch {
+        _diary.value = getDiary(student, yearId, start, end)
     }
     init {
         updateDiary()

@@ -6,11 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.supwithmice.diary.DiaryApp.Companion.appToast
 import com.supwithmice.diary.core.AuthModule.AuthEvent
 import com.supwithmice.diary.core.AuthModule.authMe
+import com.supwithmice.diary.core.DiaryData.initData
 import com.supwithmice.diary.core.SettingsModule.diaryPassword
 import com.supwithmice.diary.core.SettingsModule.diaryUsername
-import com.supwithmice.diary.core.DiaryData.initData
 import com.supwithmice.diary.core.recreateClient
-import com.supwithmice.diary.utils.outLogger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -56,8 +55,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        outLogger()
-    }
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        outLogger()
+//    }
 }

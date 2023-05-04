@@ -6,11 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.gson.Gson
 import com.supwithmice.diary.InitialLogin
+import com.supwithmice.diary.core.AuthModule.url
 import com.supwithmice.diary.core.DiaryData
 import com.supwithmice.diary.core.SettingsModule.diaryPassword
 import com.supwithmice.diary.core.SettingsModule.diaryUsername
+import com.supwithmice.diary.core.client
 import com.supwithmice.diary.databinding.FragmentProfileBinding
+import io.ktor.client.request.*
+import io.ktor.http.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
 
@@ -38,6 +46,18 @@ class ProfileFragment : Fragment() {
             startActivity(Intent(container!!.context, InitialLogin::class.java))
             activity?.finish()
         }
+
+        binding.saveAllButton.setOnClickListener { with(binding) {
+            DiaryData.diarySettings.mobilePhone = phoneEditText.text.toString()
+            DiaryData.diarySettings.email = emailEditText.text.toString()
+            CoroutineScope(Dispatchers.IO).launch {
+                client.post(url + "webapi/mysettings/") {
+                    contentType(ContentType.Application.Json)
+                    setBody(Gson().toJson(DiaryData.diarySettings))
+                }
+            }
+
+        }}
 
         return root
     }

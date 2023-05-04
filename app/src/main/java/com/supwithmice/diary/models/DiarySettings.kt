@@ -2,13 +2,13 @@ package com.supwithmice.diary.models
 
 data class DiarySettings(
     val birthDate: String,
-    val email: String,
+    var email: String,
     val existsPhoto: Boolean,
     val firstName: String,
     val lastName: String,
     val loginName: String,
     val middleName: String,
-    val mobilePhone: String,
+    var mobilePhone: String,
     val preferedCom: String,
     val roles: List<String>,
     val schoolyearId: Int,
