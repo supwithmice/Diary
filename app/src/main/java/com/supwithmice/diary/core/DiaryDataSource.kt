@@ -4,7 +4,9 @@ package com.supwithmice.diary.core
 
 import com.supwithmice.diary.core.AuthModule.url
 import com.supwithmice.diary.models.Diary
+import com.supwithmice.diary.models.ReportConnection
 import com.supwithmice.diary.models.Student
+import com.supwithmice.diary.models.StudentTotalReport
 import com.supwithmice.diary.utils.log
 import io.ktor.client.call.*
 import io.ktor.client.request.*
@@ -52,4 +54,13 @@ suspend fun getOverdue(student: Student, yearId: Int , start: String? = null, en
     }.body()
 
     overdue.log()
+}
+
+suspend fun getStudentTotal() {
+    val filter: StudentTotalReport = client.get(url + "reports/studenttotal").body()
+    val period = filter.filterSources[2].defaultValue
+    val connection: ReportConnection = client.get("http://109.195.102.150/WebApi/signalr/negotiate").body()
+    connection.log("connection")
+
+
 }

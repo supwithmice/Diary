@@ -36,15 +36,25 @@ class DiaryFragment() : Fragment() {
         binding.parentDiaryRecyclerView.layoutManager = LinearLayoutManager(container!!.context, LinearLayoutManager.VERTICAL,false)
         parentDiaryAdapter = ParentDiaryAdapter()
         binding.parentDiaryRecyclerView.adapter = parentDiaryAdapter
+
         fun update() {
+            binding.parentDiaryRecyclerView.visibility = View.VISIBLE
+            binding.progressBar.show()
             diaryViewModel.updateDiary()
             diaryViewModel.diary.observe(viewLifecycleOwner) {
                 it.log()
                 if (it != null) {
+                    binding.progressBar.hide()
                     parentDiaryAdapter.addData(it.weekDays)
-                } else { Toast.makeText(container.context, "Invalid Diary", Toast.LENGTH_SHORT).show() }
+                    binding.parentDiaryRecyclerView.visibility = View.VISIBLE
+                } else {
+                    binding.progressBar.hide()
+                    Toast.makeText(container.context, "Invalid Diary", Toast.LENGTH_SHORT).show()
+                }
             }
         }
+
+
         binding.weekTextView.text = getFirstDay().substring(5, 10)+" - "+getLastDay().substring(5, 10)
         update()
 
@@ -71,6 +81,8 @@ class DiaryFragment() : Fragment() {
 
         return root
     }
+
+
 
 
     override fun onDestroyView() {

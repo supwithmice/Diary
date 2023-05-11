@@ -9,7 +9,15 @@ import android.webkit.WebView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.supwithmice.diary.R
+import com.supwithmice.diary.core.getStudentTotal
 import com.supwithmice.diary.databinding.FragmentGradesBinding
+import com.supwithmice.diary.utils.log
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.Response
+import okhttp3.sse.EventSource
+import okhttp3.sse.EventSourceListener
 
 
 class GradesFragment : Fragment() {
@@ -33,9 +41,44 @@ class GradesFragment : Fragment() {
 
         val webView: WebView = binding.webview
 
+        //placeholder
         val unencodedHtml = getString(R.string.asd)
         val encodedHtml = Base64.encodeToString(unencodedHtml.toByteArray(), Base64.NO_PADDING)
-        webView.loadData(unencodedHtml, "text/html", null)
+        webView.loadData(encodedHtml, "text/html", null)
+        webView.loadData(unencodedHtml, "text/html; charset=utf-8", "UTF-8")
+
+        CoroutineScope(Dispatchers.IO).launch {
+            getStudentTotal()
+        }
+
+
+        val eventSourceListener = object : EventSourceListener() {
+            override fun onOpen(eventSource: EventSource, response: Response) {
+                super.onOpen(eventSource, response)
+                "Connection Opened".log()
+            }
+
+            override fun onClosed(eventSource: EventSource) {
+                super.onClosed(eventSource)
+                "Connection Closed".log()
+            }
+
+            override fun onEvent(
+                eventSource: EventSource,
+                id: String?,
+                type: String?,
+                data: String
+            ) {
+                super.onEvent(eventSource, id, type, data)
+                "On Event Received! Data -: $data".log()
+            }
+
+            override fun onFailure(eventSource: EventSource, t: Throwable?, response: Response?) {
+                super.onFailure(eventSource, t, response)
+            "On Failure -: ${response?.body}".log()
+            }
+        }
+
 
         return root
     }
